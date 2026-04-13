@@ -11,64 +11,83 @@ body {
 .container {
     background: white;
     padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
     text-align: center;
+    max-width: 600px;
 }
 
-.input-section {
+h1 {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.subtitle {
+    margin-top: 0;
+    color: #666;
     margin-bottom: 20px;
 }
 
-input {
-    padding: 8px;
-    font-size: 16px;
-    width: 150px;
-    text-align: center;
+.controls {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
 }
 
 button {
-    padding: 8px 15px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
+    padding: 10px 15px;
     border: none;
-    cursor: pointer;
+    background-color: #007BFF;
+    color: white;
     border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
 }
 
 button:hover {
     background-color: #0056b3;
 }
 
-/* Tabuleiro 3x3 usando Grid */
 .board {
     display: grid;
-    grid-template-columns: repeat(3, 80px);
-    grid-template-rows: repeat(3, 80px);
-    gap: 5px;
-    justify-content: center;
-    margin: 20px auto;
-    background-color: #333;
-    padding: 5px;
-    border-radius: 5px;
+    grid-template-columns: repeat(8, 45px);
+    grid-template-rows: repeat(8, 45px);
+    gap: 0;
+    margin: 0 auto 20px auto;
+    border: 2px solid #333;
+    width: max-content;
 }
 
-/* Estilo de cada peça */
-.tile {
+.cell {
+    width: 45px;
+    height: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #fff;
-    font-size: 24px;
-    font-weight: bold;
-    border-radius: 4px;
-    /* Preparando para a animação futura */
-    transition: transform 0.2s ease-in-out; 
+    font-size: 30px; /* Tamanho do ícone da rainha */
 }
 
-/* Esconde a peça que representa o espaço vazio (0) */
-.tile.empty {
-    background-color: transparent;
-    color: transparent;
+/* Cores do tabuleiro de xadrez */
+.white { background-color: #f0d9b5; }
+.black { background-color: #b58863; }
+
+.queen {
+    color: #000;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.results {
+    text-align: left;
+    background: #e9ecef;
+    padding: 15px;
+    border-radius: 4px;
+    border-left: 4px solid #007BFF;
+}
+
+.results p {
+    margin: 5px 0;
+    font-size: 15px;
 }

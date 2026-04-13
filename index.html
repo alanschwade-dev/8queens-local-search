@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>8 Puzzle - Busca em Largura</title>
+    <title>8 Rainhas - Busca Local</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1>Solucionador 8 Puzzle</h1>
+        <h1>Solucionador 8 Rainhas</h1>
+        <p class="subtitle">Análise de Algoritmos de Busca Local</p>
         
-        <div class="input-section">
-            <label for="initialState">Estado Inicial (0 a 8):</label>
-            <input type="text" id="initialState" placeholder="Ex: 123456708" maxlength="15">
-            <button onclick="iniciarBusca()">Resolver</button>
+        <div class="controls">
+            <button onclick="executarHillClimbing()">Subida de Encosta (Reinício)</button>
+            <button onclick="executarTemperaSimulada()">Têmpera Simulada</button>
+            <button onclick="executarAlgoritmoGenetico()">Algoritmo Genético</button>
         </div>
 
-        <div id="board" class="board">
-            </div>
+        <div id="board" class="board"></div>
 
         <div class="results">
-            <p><strong>Caminho:</strong> <span id="path">-</span></p>
-            <p><strong>Quantidade de Movimentos:</strong> <span id="moves">-</span></p>
-            <p><strong>Estados Testados:</strong> <span id="testedStates">-</span></p>
+            <p><strong>Algoritmo:</strong> <span id="algoName">-</span></p>
+            <p><strong>Ataques Restantes (Objetivo = 0):</strong> <span id="ataques">-</span></p>
+            <p><strong>Esforço (Iterações/Gerações):</strong> <span id="iteracoes">-</span></p>
         </div>
     </div>
 
