@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>8 Puzzle - Busca em Largura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Solucionador 8 Puzzle</h1>
+        
+        <div class="input-section">
+            <label for="initialState">Estado Inicial (0 a 8):</label>
+            <input type="text" id="initialState" placeholder="Ex: 123456708" maxlength="15">
+            <button onclick="iniciarBusca()">Resolver</button>
+        </div>
+
+        <div id="board" class="board">
+            </div>
+
+        <div class="results">
+            <p><strong>Caminho:</strong> <span id="path">-</span></p>
+            <p><strong>Quantidade de Movimentos:</strong> <span id="moves">-</span></p>
+            <p><strong>Estados Testados:</strong> <span id="testedStates">-</span></p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

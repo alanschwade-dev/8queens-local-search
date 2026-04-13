@@ -1,0 +1,74 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f9;
+    margin: 0;
+}
+
+.container {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.input-section {
+    margin-bottom: 20px;
+}
+
+input {
+    padding: 8px;
+    font-size: 16px;
+    width: 150px;
+    text-align: center;
+}
+
+button {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Tabuleiro 3x3 usando Grid */
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 80px);
+    grid-template-rows: repeat(3, 80px);
+    gap: 5px;
+    justify-content: center;
+    margin: 20px auto;
+    background-color: #333;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Estilo de cada peça */
+.tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    border-radius: 4px;
+    /* Preparando para a animação futura */
+    transition: transform 0.2s ease-in-out; 
+}
+
+/* Esconde a peça que representa o espaço vazio (0) */
+.tile.empty {
+    background-color: transparent;
+    color: transparent;
+}
