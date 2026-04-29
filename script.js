@@ -1,13 +1,11 @@
-// --- MODELAGEM E FUNÇÕES AUXILIARES ---
-
-// Conta pares de rainhas se atacando (0 é a solução ideal)
+//Conta pares de rainhas se atacando (0 é a solução ideal)
 function contarAtaques(tabuleiro) {
     let ataques = 0;
     for (let i = 0; i < tabuleiro.length; i++) {
         for (let j = i + 1; j < tabuleiro.length; j++) {
-            // Verifica mesma linha
+            //Verifica mesma linha
             if (tabuleiro[i] === tabuleiro[j]) ataques++;
-            // Verifica mesma diagonal
+            //Verifica mesma diagonal
             const diffLinha = Math.abs(tabuleiro[i] - tabuleiro[j]);
             const diffColuna = Math.abs(i - j);
             if (diffLinha === diffColuna) ataques++;
@@ -16,21 +14,20 @@ function contarAtaques(tabuleiro) {
     return ataques;
 }
 
-// Gera um array de 8 posições aleatórias (índice = coluna, valor = linha)
-function gerarTabuleiroAleatorio() {
+//Array de 8 posicoes aleatorias (indice = coluna, valor = linha)
+function gerarTabuleiro() {
     return Array.from({ length: 8 }, () => Math.floor(Math.random() * 8));
 }
 
 
-// --- 1. SUBIDA DE ENCOSTA (HILL CLIMBING) COM REINÍCIO ---
-
+//Hill Climbing
 function hillClimbingComReinicio() {
     let reinicios = 0;
     let movimentosTotais = 0;
 
     while (true) {
         reinicios++;
-        let atual = gerarTabuleiroAleatorio();
+        let atual = gerarTabuleiro();
         let ataquesAtuais = contarAtaques(atual);
 
         let progredindo = true;
@@ -39,7 +36,7 @@ function hillClimbingComReinicio() {
             let melhorVizinho = [...atual];
             let melhorAtaques = ataquesAtuais;
 
-            // Explora todos os vizinhos possíveis movendo uma rainha por coluna
+            //explora todos os vizinhos possiveis movendo uma rainha por coluna
             for (let col = 0; col < 8; col++) {
                 for (let linha = 0; linha < 8; linha++) {
                     if (atual[col] === linha) continue;
@@ -60,26 +57,25 @@ function hillClimbingComReinicio() {
             ataquesAtuais = melhorAtaques;
             movimentosTotais++;
 
-            // Se achou a solução global, retorna
+            //se achou a solucao global retorna
             if (ataquesAtuais === 0) {
                 return { solucao: atual, ataques: 0, iteracoes: `Resolvido com ${reinicios} reinícios aleatórios e ${movimentosTotais} movimentos` };
             }
         }
-        // Se saiu do while(progredindo) com ataques > 0, atingiu um mínimo local. O while(true) forçará o reinício.
+        // Se saiu do while(progredindo) com ataques > 0, atingiu um minimo local. O while(true) vai forçar reinicio
     }
 }
 
 
-// --- 2. TÊMPERA SIMULADA (SIMULATED ANNEALING) ---
-
+// Simulated Annealing
 function temperaSimulada() {
     let temp = 100;
     const taxaResfriamento = 0.99;
-    let atual = gerarTabuleiroAleatorio();
+    let atual = gerarTabuleiro();
     let ataquesAtuais = contarAtaques(atual);
     let iteracoes = 0;
 
-    // Roda até a temperatura esfriar ou encontrar a solução perfeita
+    // Roda até a temperatura esfriar ou encontrar a solução
     while (temp > 0.01 && ataquesAtuais > 0) {
         iteracoes++;
         
@@ -104,16 +100,15 @@ function temperaSimulada() {
 }
 
 
-// --- 3. ALGORITMO GENÉTICO ---
 
 function algoritmoGenetico() {
     const tamanhoPop = 100;
     const taxaMutacao = 0.1;
-    let populacao = Array.from({ length: tamanhoPop }, gerarTabuleiroAleatorio);
+    let populacao = Array.from({ length: tamanhoPop }, gerarTabuleiro);
     let limiteGeracoes = 1000;
 
     for (let geracao = 0; geracao < limiteGeracoes; geracao++) {
-        // Avaliação (Fitness): Ordena do com menos ataques para o com mais ataques
+        //Ordena do com menos ataques para o com mais ataques
         populacao.sort((a, b) => contarAtaques(a) - contarAtaques(b));
         
         if (contarAtaques(populacao[0]) === 0) {
@@ -124,11 +119,11 @@ function algoritmoGenetico() {
         let novaPopulacao = [populacao[0], populacao[1]]; 
 
         while (novaPopulacao.length < tamanhoPop) {
-            // Seleção: Pega aleatoriamente entre os 20 melhores
+            // Pega aleatoriamente entre os 20 melhores
             let pai1 = populacao[Math.floor(Math.random() * 20)];
             let pai2 = populacao[Math.floor(Math.random() * 20)];
 
-            // Crossover: Ponto de corte aleatório
+            // Ponto de corte aleatório
             let ponto = Math.floor(Math.random() * 8);
             let filho = [...pai1.slice(0, ponto), ...pai2.slice(ponto)];
 
@@ -147,8 +142,6 @@ function algoritmoGenetico() {
     return { solucao: populacao[0], ataques: contarAtaques(populacao[0]), iteracoes: `Limite de ${limiteGeracoes} gerações atingido` };
 }
 
-
-// --- INTEGRAÇÃO COM O HTML (DOM) ---
 
 function desenharTabuleiro(tabuleiro) {
     const board = document.getElementById('board');
@@ -184,7 +177,6 @@ function exibirResultados(nomeAlgoritmo, resultado) {
     desenharTabuleiro(resultado.solucao);
 }
 
-// Funções acionadas pelos botões
 function executarHillClimbing() {
     const res = hillClimbingComReinicio();
     exibirResultados("Subida de Encosta (Reinício Aleatório)", res);
@@ -202,5 +194,5 @@ function executarAlgoritmoGenetico() {
 
 // Inicia a tela com um tabuleiro vazio ou aleatório
 window.onload = () => {
-    desenharTabuleiro(gerarTabuleiroAleatorio());
+    desenharTabuleiro(gerarTabuleiro());
 };
